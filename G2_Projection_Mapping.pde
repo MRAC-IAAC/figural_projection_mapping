@@ -31,15 +31,14 @@ public void setup() {
   //size(512, 424); 
   fullScreen();
   print(width + " : " + height);
-  
+
   float wS = width / 512.0;
   float hS = height / 424.0;
-  
+
   if (wS < hS) {
-     scaleFactor = wS;
-  }
-  else {
-     scaleFactor = hS; 
+    scaleFactor = wS;
+  } else {
+    scaleFactor = hS;
   }
 
   opencv = new OpenCV(this, 512, 424);
@@ -66,24 +65,28 @@ public void setup() {
 }
 
 public void draw() {
-  background(0,0,50);
+  background(0, 0, 50);
 
   ArrayList<PImage> bodyTrackList = kinect.getBodyTrackUser();
   for (int i = 0; i < bodyTrackList.size(); i++) {
     PImage bodyTrackImg = (PImage)bodyTrackList.get(i);
     opencv.loadImage(bodyTrackImg);
 
+    opencv.gray();
+    opencv.threshold(10);
+
     Mat forOpen = new Mat( 3, 3, CvType.CV_64FC1 );
     int row = 0, col = 0;
-    forOpen.put(row, col, 1,1,1,1,1,1,1,1,1 );
+    forOpen.put(row, col, 1, 1, 1, 1, 1, 1, 1, 1, 1 );
 
     opencv.erode();
     opencv.dilate();
     //Imgproc.dilate(opencv.matGray, opencv.matGray, forOpen);
     bodyTrackImg = opencv.getOutput();
-    
+
     float iW = bodyTrackImg.width * scaleFactor;
     float iH = bodyTrackImg.height * scaleFactor;
-    image(bodyTrackImg, width / 2 - (iW / 2), height / 2 - (iH / 2),iW,iH);
+    scale(-1, 1);
+    image(bodyTrackImg, width / 2 - (iW / 2), height / 2 - (iH / 2), iW, iH);
   }
 }
