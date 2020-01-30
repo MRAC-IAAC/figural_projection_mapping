@@ -9,6 +9,10 @@
  Status: development
  **/
 
+/**
+ // Kinect resolution : 512x424
+ **/
+
 import gab.opencv.*;
 import KinectPV2.*;
 
@@ -18,19 +22,19 @@ import org.opencv.video.BackgroundSubtractorMOG;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.imgproc.Imgproc;
 
-// Kinect resolution : 512x424
-
-KinectPV2 kinect;
-OpenCV opencv;
+public KinectPV2 kinect;
+public OpenCV opencv;
 
 /** Scaling from kinect image resolution to screen resolution **/
-float scaleFactor = 1;
+public float scaleFactor = 1;
 
 /** Kinect image width after scaling **/
-float iW = -1;
+public float iW = -1;
 
 /** Kinect image height after scaling **/
-float iH = -1;
+public float iH = -1;
+
+public PImage personMask;
 
 public void setup() {
   //size(512, 424); 
@@ -46,26 +50,9 @@ public void setup() {
   iH = 424 * scaleFactor;
 
   opencv = new OpenCV(this, 512, 424);
-  kinect = new KinectPV2(this);
 
-  // A grayscale image showing depth, values from 0-255
-  // kinect.getDepthImage()
-  kinect.enableDepthImg(true);
 
-  // Depth mask, but blanks out people blobs
-  // kinect.getDepthMaskImage()
-  kinect.enableDepthMaskImg(true);
-
-  // Seems the same as DepthImg?
-  // kinect.getPointCloudDepthImage()
-  kinect.enablePointCloud(true);
-
-  // One bit mask showing body blobs
-  // kinect.getBodyTrackImage()
-  // kinect.getBodyTrackUser() -> Returns an arraylist of blobs sorted by different people
-  kinect.enableBodyTrackImg(true);
-
-  kinect.init();
+  setupKinect();
 }
 
 public void draw() {
@@ -79,13 +66,14 @@ public void draw() {
     opencv.gray();
     opencv.threshold(10);
 
-    Mat forOpen = new Mat( 3, 3, CvType.CV_64FC1 );
-    int row = 0, col = 0;
-    forOpen.put(row, col, 1, 1, 1, 1, 1, 1, 1, 1, 1 );
+    //Mat forOpen = new Mat( 3, 3, CvType.CV_64FC1 );
+    //int row = 0, col = 0;
+    //forOpen.put(row, col, 1, 1, 1, 1, 1, 1, 1, 1, 1 );
+    //Imgproc.dilate(opencv.matGray, opencv.matGray, forOpen);
 
     opencv.erode();
     opencv.dilate();
-    //Imgproc.dilate(opencv.matGray, opencv.matGray, forOpen);
+
     bodyTrackImg = opencv.getOutput();
 
     // Flip Image 
