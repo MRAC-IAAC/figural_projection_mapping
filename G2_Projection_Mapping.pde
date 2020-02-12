@@ -40,10 +40,14 @@ public PImage personMask;
 
 public Spout spout;
 
+PGraphics output;
+
 public void setup() {
   //size(512, 424); 
-  fullScreen(P2D);
-  //size(1920,1080,P2D);
+  //fullScreen(P2D);
+  size(960,540,P2D);
+  
+  output = createGraphics(1920,1080,P2D);
   println(width + " : " + height);
 
   float wS = width / 512.0;
@@ -63,7 +67,8 @@ public void setup() {
 }
 
 public void draw() {
-  background(0, 0, 50);
+  //background(0, 0, 50);
+  background(0);
 
   ArrayList<PImage> bodyTrackList = kinect.getBodyTrackUser();
   for (int i = 0; i < bodyTrackList.size(); i++) {
@@ -81,7 +86,13 @@ public void draw() {
     opencv.erode();
     opencv.dilate();
 
-    bodyTrackImg = opencv.getOutput();
+    //bodyTrackImg = opencv.getOutput();
+    bodyTrackImg = cvGetOutlines();
+    
+    PImage graphics = drawGraphics();
+    graphics.mask(bodyTrackImg);
+    background(0);
+    image(graphics, width / 2 - (iW / 2), height / 2 - (iH / 2), iW, iH);
 
     // Flip Image 
     translate(width, 0);
