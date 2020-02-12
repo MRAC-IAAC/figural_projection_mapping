@@ -12,14 +12,16 @@ public PImage cvGetOutlines() {
   opencv.erode();
   opencv.dilate();
 
-  PGraphics output = createGraphics(width, height);
+// Evil hardcoded size
+  PGraphics output = createGraphics(652, 540);
   output.beginDraw();
 
   // Arguments to findContours are 'findHoles' and 'sort'
-  ArrayList<Contour> contours = opencv.findContours(false, false);
+  ArrayList<Contour> contours = opencv.findContours(false, true);
   for (Contour contour : contours) {
     //float polygonFactor = 1.0 * mouseX / width * 10.0;
     float polygonFactor = 1;
+    //println(polygonFactor);
     contour.setPolygonApproximationFactor(polygonFactor);
     if (contour.numPoints() > 50) {
       //stroke(0, 200, 200);

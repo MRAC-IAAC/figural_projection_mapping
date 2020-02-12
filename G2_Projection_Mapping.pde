@@ -92,16 +92,18 @@ public void draw() {
     PImage graphics = drawGraphics();
     graphics.mask(bodyTrackImg);
     background(0);
-    image(graphics, width / 2 - (iW / 2), height / 2 - (iH / 2), iW, iH);
+    //image(graphics, width / 2 - (iW / 2), height / 2 - (iH / 2), iW, iH);
 
     // Flip Image 
     translate(width, 0);
     scale(-1, 1);
-    image(bodyTrackImg, width / 2 - (iW / 2), height / 2 - (iH / 2), iW, iH);
+    image(graphics, width / 2 - (iW / 2), height / 2 - (iH / 2), iW, iH);
   }
   if (bodyTrackList.size() == 0) {
     image(kinect.getDepth256Image(), width / 2 - (iW / 2), height / 2 - (iH / 2), iW, iH);
   }
 
   spout.sendTexture();
+  
+  println(frameRate);
 }
