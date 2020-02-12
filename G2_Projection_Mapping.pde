@@ -25,6 +25,8 @@ import org.opencv.imgproc.Imgproc;
 public KinectPV2 kinect;
 public OpenCV opencv;
 
+import spout.*;
+
 /** Scaling from kinect image resolution to screen resolution **/
 public float scaleFactor = 1;
 
@@ -35,6 +37,8 @@ public float iW = -1;
 public float iH = -1;
 
 public PImage personMask;
+
+public Spout spout;
 
 public void setup() {
   //size(512, 424); 
@@ -51,6 +55,8 @@ public void setup() {
 
   opencv = new OpenCV(this, 512, 424);
 
+  spout = new Spout(this);
+  spout.createSender("Projection Mapping Source Graphics");
 
   setupKinect();
 }
@@ -84,4 +90,6 @@ public void draw() {
   if (bodyTrackList.size() == 0) {
     image(kinect.getDepth256Image(), width / 2 - (iW / 2), height / 2 - (iH / 2), iW, iH);
   }
+
+  spout.sendTexture();
 }
