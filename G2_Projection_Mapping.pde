@@ -42,8 +42,9 @@ public Spout spout;
 
 public void setup() {
   //size(512, 424); 
-  fullScreen();
-  print(width + " : " + height);
+  fullScreen(P2D);
+  //size(1920,1080,P2D);
+  println(width + " : " + height);
 
   float wS = width / 512.0;
   float hS = height / 424.0;
