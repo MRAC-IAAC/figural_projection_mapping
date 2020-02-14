@@ -12,7 +12,7 @@ public PImage cvGetOutlines() {
   opencv.erode();
   opencv.dilate();
 
-// Evil hardcoded size
+  // Evil hardcoded size
   PGraphics output = createGraphics(652, 540);
   output.beginDraw();
 
@@ -24,22 +24,45 @@ public PImage cvGetOutlines() {
     //println(polygonFactor);
     contour.setPolygonApproximationFactor(polygonFactor);
     if (contour.numPoints() > 50) {
-      //stroke(0, 200, 200);
-      //noFill();
-      output.fill(255);
-      output.noStroke();
+      ArrayList<PVector> points = contour.getPolygonApproximation().getPoints();
+      output.stroke(255,0,0);
+      output.noFill();
+      //output.fill(255);
+      //output.noStroke();
 
       output.beginShape();
-
-      for (PVector point : contour.getPolygonApproximation ().getPoints()) {
+      for (PVector point : points) {
         output.vertex(point.x, point.y);
       }
       output.endShape();
+      
+      drawMultipleOutlines(output,points,20);
     }
   }
 
   output.endDraw();
   return output;
+}
+
+public void drawMultipleOutlines(PGraphics pg, ArrayList<PVector> points, int count) {
+  PVector average = new PVector();
+  for (PVector p : points) {
+    average.add(p);
+  }
+  average.div(points.size());
+
+  for (int i =0; i < count; i++) {
+    float n = 1.0 * i / count;  
+    pg.stroke(255,0,0,(1-n) * 255); 
+    n /= 3;
+
+    pg.beginShape();
+    for (PVector point : points) {
+      point = PVector.lerp(point,average,n);   
+      pg.vertex(point.x, point.y);
+    }
+    pg.endShape(CLOSE);
+  }
 }
 
 PImage[] imgHistory = new PImage[3];
@@ -50,7 +73,7 @@ public PImage calculateImageHistory(PImage newImg) {
   }
   imgHistory[imgHistory.length-1] = newImg;
 
-  PGraphics output = createGraphics(width,height);
+  PGraphics output = createGraphics(width, height);
   output.beginDraw();
   for (int i = 0; i < imgHistory.length; i++) {
     float a = 1.0 / (i + 1) * 255.0;
@@ -59,6 +82,6 @@ public PImage calculateImageHistory(PImage newImg) {
   }
   output.tint(255, 255);
   output.endDraw();
-  
+
   return(output);
 }

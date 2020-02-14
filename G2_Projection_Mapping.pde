@@ -40,14 +40,14 @@ public PImage personMask;
 
 public Spout spout;
 
-PGraphics output;
+//PGraphics output;
 
 public void setup() {
   //size(512, 424); 
   //fullScreen(P2D);
   size(960,540,P2D);
   
-  output = createGraphics(1920,1080,P2D);
+  //output = createGraphics(1920,1080,P2D);
   println(width + " : " + height);
 
   float wS = width / 512.0;
