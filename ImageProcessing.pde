@@ -26,8 +26,8 @@ public PImage cvGetOutlines() {
     if (contour.numPoints() > 50) {
       ArrayList<PVector> points = contour.getPolygonApproximation().getPoints();
       output.stroke(255,0,0);
-      output.noFill();
-      //output.fill(255);
+      //output.noFill();
+      output.fill(255);
       //output.noStroke();
 
       output.beginShape();
@@ -35,7 +35,7 @@ public PImage cvGetOutlines() {
         output.vertex(point.x, point.y);
       }
       output.endShape();
-      
+      output.noFill();
       drawMultipleOutlines(output,points,20);
     }
   }
@@ -50,7 +50,6 @@ public void drawMultipleOutlines(PGraphics pg, ArrayList<PVector> points, int co
     average.add(p);
   }
   average.div(points.size());
-
   for (int i =0; i < count; i++) {
     float n = 1.0 * i / count;  
     pg.stroke(255,0,0,(1-n) * 255); 
@@ -58,7 +57,7 @@ public void drawMultipleOutlines(PGraphics pg, ArrayList<PVector> points, int co
 
     pg.beginShape();
     for (PVector point : points) {
-      point = PVector.lerp(point,average,n);   
+      point = PVector.lerp(point,average,-n);   
       pg.vertex(point.x, point.y);
     }
     pg.endShape(CLOSE);
