@@ -1,5 +1,5 @@
 /**
- Assumes an image is already oaded into OpenCV
+ Assumes an image is already loaded into OpenCV
  Finds the contours of the image and draws them in solid white, to be used as a mask. 
  Returns the resulting PImage
  **/
