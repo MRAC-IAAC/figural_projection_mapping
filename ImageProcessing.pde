@@ -1,8 +1,5 @@
-/**
- Assumes an image is already loaded into OpenCV
- Finds the contours of the image and draws them in solid white, to be used as a mask. 
- Returns the resulting PImage
- **/
+public ArrayList<Contour> currentContours = new ArrayList<Contour>();
+ 
 public PGraphics cvGetOutlines(PGraphics pg) {
   opencv.gray();
   opencv.threshold(10);
@@ -10,7 +7,7 @@ public PGraphics cvGetOutlines(PGraphics pg) {
   // open to reduce noise
   opencv.erode();
   opencv.dilate();
-
+  currentContours.clear();
   // Arguments to findContours are 'findHoles' and 'sort'
   ArrayList<Contour> contours = opencv.findContours(false, true);
   for (Contour contour : contours) {
@@ -19,7 +16,10 @@ public PGraphics cvGetOutlines(PGraphics pg) {
     //println(polygonFactor);
     contour.setPolygonApproximationFactor(polygonFactor);
     if (contour.numPoints() > 50) {
-      ArrayList<PVector> points = contour.getPolygonApproximation().getPoints();
+      Contour approxContour = contour.getPolygonApproximation();
+      currentContours.add(approxContour);
+      ArrayList<PVector> points = approxContour.getPoints();
+      
       pg.stroke(255, 0, 0);
       //output.noFill();
       pg.fill(255);
@@ -31,7 +31,7 @@ public PGraphics cvGetOutlines(PGraphics pg) {
       }
       pg.endShape();
 
-      drawMultipleOutlines(pg, points, 20);
+      //drawMultipleOutlines(pg, points, 20);
     }
   }
   return pg;

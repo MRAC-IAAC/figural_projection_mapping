@@ -1,23 +1,88 @@
-public void drawProjection(PApplet pa,PImage tex, int scale) {
-    float diff = 0.05;
-  for (float u = 0; u < 1; u += diff) {
-    for (float v = 0; v < 1; v += diff) {
-      pa.beginShape();
-      pa.texture(tex);
-      PVector v1 = quadLerp(vertices, u, v).div(scale);
-      PVector v2 = quadLerp(vertices, u+diff, v).div(scale);
-      PVector v3 = quadLerp(vertices, u+diff, v+diff).div(scale);
-      PVector v4 = quadLerp(vertices, u, v+diff).div(scale);
-      PVector vt1 = quadLerp(texVertices, u, v);
-      PVector vt2 = quadLerp(texVertices, u+diff, v);
-      PVector vt3 = quadLerp(texVertices, u+diff, v+diff);
-      PVector vt4 = quadLerp(texVertices, u, v+diff); 
+public ArrayList<Particle> particles;
 
-      pa.vertex(v1.x, v1.y, vt1.x, vt1.y);
-      pa.vertex(v2.x, v2.y, vt2.x, vt2.y);
-      pa.vertex(v3.x, v3.y, vt3.x, vt3.y);
-      pa.vertex(v4.x, v4.y, vt4.x, vt4.y);
-      pa.endShape();
+public void setupParticles() {
+  particles = new ArrayList<Particle>();
+  for (int i =0; i < 100; i++) {
+    particles.add(new Particle(new PVector(random(width), random(height)), 0xFF00AAFF));
+  }
+}
+
+public void updateParticles() {
+  for (Particle part : particles) {
+    part.update();
+  }
+  for (Particle part : particles) {
+    part.draw(graphics);
+  }
+}
+
+public class Particle {
+  PVector position;
+  PVector velocity;
+  float maxVelocity = 3 + random(-0.2, 0.2);
+  int particleColor;
+
+  public Particle(PVector position, int particleColor) {
+    this.position = position;
+    this.particleColor = particleColor;
+    this.velocity = new PVector(0, 0);
+  }
+
+  public void draw(PGraphics pg) {
+    pg.stroke(particleColor);
+    pg.ellipse(position.x, position.y, 3, 3);
+  }
+
+  public void update() {
+
+    velocity.add(0, 0.1);
+
+
+
+    if (velocity.mag() > maxVelocity) {
+      velocity = velocity.normalize();
+      velocity = velocity.mult(maxVelocity);
+    }
+
+    for (Contour c : currentContours) {
+      testContour(c);
+    }
+
+    position.add(velocity);
+
+
+    if (position.y > height) {
+      position.y = 0;
+      position.x = random(width);
+    }
+
+    if (position.x < (width - depthCamera.scaledWidth) / 2) {
+      position.x = (width - depthCamera.scaledWidth) / 2;
+      velocity.x = -velocity.x;
+    }
+    if (position.x > (width- ((width - depthCamera.scaledWidth) / 2))) {
+      position.x = (width - ((width - depthCamera.scaledWidth) / 2));
+      velocity.x = -velocity.x;
+    }
+  }
+
+  public void testContour(Contour c) {
+    if (c.containsPoint((int)position.x, (int)position.y)) {
+      ArrayList<PVector> points = c.getPoints();
+      float bestDistance = 999999999;
+      PVector bestPoint = null;
+      for (PVector point : points) {
+        float d = PVector.dist(point, position);
+        if (bestPoint == null || d < bestDistance) {
+          bestPoint = point;
+          bestDistance = d;
+        }
+      }
+      PVector vec = PVector.sub(bestPoint, position);
+      position = PVector.lerp(position,bestPoint,0.5);
+      vec.normalize();
+      vec.mult(3);
+      velocity.add(vec);
     }
   }
 }
