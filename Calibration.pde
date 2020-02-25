@@ -9,6 +9,8 @@ public void setupControlWindow() {
 public void controlDraw(PApplet pa, GWinData windata) {
   pa.textureMode(NORMAL);
   pa.background(0);
+  pa.fill(0);
+  pa.rect(0,0,pa.width,pa.height);
   pa.noFill();
   pa.noStroke();
 

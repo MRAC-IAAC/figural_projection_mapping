@@ -10,6 +10,7 @@
  **/
 
 import ch.bildspur.realsense.*;
+import ch.bildspur.realsense.type.ColorScheme;
 
 import gab.opencv.*;
 import org.opencv.core.*;
@@ -101,6 +102,8 @@ public void draw() {
   controlImg = graphics.get();
 
   background(0);
+  fill(0);
+  rect(0,0,width,height);
   noFill();
   noStroke();
 

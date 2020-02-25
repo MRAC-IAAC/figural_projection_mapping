@@ -59,7 +59,8 @@ public class DepthCamera {
 
   public void activateRealSense(PApplet p) {
     realSense = new RealSenseCamera(p);
-    realSense.start(640, 480, 30, true, false);
+    realSense.enableDepthStream(640,480);
+    realSense.start();
     cameraWidth = 640;
     cameraHeight = 480;
   }
@@ -84,7 +85,8 @@ public class DepthCamera {
       return kinect.getDepthImage();
     } else {
       realSense.readFrames();
-      realSense.createDepthImage(300, 10000);
+      realSense.enableColorizer(ColorScheme.WhiteToBlack);
+      //realSense.createDepthImage(300, 10000);
       return(realSense.getDepthImage());
     }
   }
