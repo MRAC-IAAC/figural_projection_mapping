@@ -54,8 +54,8 @@ public PImage controlImg;
 // useKinect : true = Kinect camera, false = realSense camera
 // useExternalDisplay : true = main graphics are fullscreen on second display, false = main graphics are windowed
 // useSpout : true = send final graphics through spout, false = ignore spout
-public boolean useKinect = false;
-public boolean useExternalDisplay = false;
+public boolean useKinect = true;
+public boolean useExternalDisplay = true;
 public boolean useSpout = false;
 
 public void settings() {
@@ -89,7 +89,9 @@ public void draw() {
   background(0, 0, 50);
 
   PImage body = depthCamera.getBodyBlobImage();
-  image(body, (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
+  if (body != null) {
+    image(body, (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
+  }
 
   opencv.loadImage(get());
 
@@ -97,6 +99,12 @@ public void draw() {
   graphics.background(0);
   graphics = cvGetOutlines(graphics);
   updateParticles();
+  
+  graphics.pushMatrix();
+  graphics.scale(-1,1);
+  graphics.image(graphics.get(),-graphics.width,0);
+  graphics.popMatrix();
+  
   graphics.endDraw();
 
   controlImg = graphics.get();

@@ -60,6 +60,7 @@ public class DepthCamera {
   public void activateRealSense(PApplet p) {
     realSense = new RealSenseCamera(p);
     realSense.enableDepthStream(640,480);
+    println("hello!");
     realSense.start();
     cameraWidth = 640;
     cameraHeight = 480;
@@ -68,8 +69,10 @@ public class DepthCamera {
   public PImage getBodyBlobImage() {
     if (useKinect) {
       ArrayList<PImage> bodyTrackList = kinect.getBodyTrackUser(); 
-      PImage bodyTrackImg = (PImage)bodyTrackList.get(0);
-      return(bodyTrackImg);
+      if (bodyTrackList.size() >0) {
+        return((PImage)bodyTrackList.get(0));
+      }
+      else return null;
     } else {
       PImage out = getDepthImage(); 
       cameraCV.loadImage(out);
