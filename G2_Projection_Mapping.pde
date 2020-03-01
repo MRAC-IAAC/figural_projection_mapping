@@ -36,6 +36,9 @@ public int vertexId = 0;
 public PVector vertices[] = new PVector[4];
 public PVector texVertices[] = new PVector[4];
 
+public PVector subVertices[] = new PVector[4];
+public PVector subTexVertices[] = new PVector[4];
+
 public PApplet controlApplet  = null;
 
 
@@ -73,6 +76,7 @@ public void settings() {
 public void setup() {
   setupSize();
   graphics = createGraphics(width, height);
+  controlImg = createImage(width,height,ARGB);
 
   setupParticles();
 
@@ -95,8 +99,6 @@ public void draw() {
     image(body, (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
   }
   
-  
-
   opencv.loadImage(get());
 
   graphics.beginDraw();
@@ -112,6 +114,7 @@ public void draw() {
   graphics.endDraw();
 
   controlImg = graphics.get();
+  //controlImg.copy(graphics,0,0,graphics.width,graphics.height,0,0,graphics.width,graphics.height);
 
   background(0);
   fill(0);
@@ -146,6 +149,11 @@ public void setupSize() {
   texVertices[1] = new PVector(1, 0);
   texVertices[2] = new PVector(1, 1);
   texVertices[3] = new PVector(0, 1);
+  
+  for (int i = 0; i < 4; i++) {
+     subVertices[i] = new PVector(0,0);
+     subTexVertices[i] = new PVector(0,0);
+  }
 }
 
 public void setupSpout() {
