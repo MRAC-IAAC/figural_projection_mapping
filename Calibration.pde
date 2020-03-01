@@ -10,24 +10,24 @@ public void controlDraw(PApplet pa, GWinData windata) {
   pa.textureMode(NORMAL);
   pa.background(0);
   pa.fill(0);
-  pa.rect(0,0,pa.width,pa.height);
+  pa.rect(0, 0, pa.width, pa.height);
   pa.noFill();
   pa.noStroke();
 
   pa.pushMatrix();
   pa.translate((pa.width / 2) - (w4/2), (pa.height / 2) - (h4 / 2));
 
-  drawProjection(pa,controlImg,4);
-  
+  drawProjection(pa, controlImg, 4);
+
   pa.noFill();
   pa.stroke(100);
   pa.beginShape();
-  pa.vertex(vertices[0].x / 4,vertices[0].y / 4);
-  pa.vertex(vertices[1].x / 4,vertices[1].y / 4);
-  pa.vertex(vertices[2].x / 4,vertices[2].y / 4);
-  pa.vertex(vertices[3].x / 4,vertices[3].y / 4);
+  pa.vertex(vertices[0].x / 4, vertices[0].y / 4);
+  pa.vertex(vertices[1].x / 4, vertices[1].y / 4);
+  pa.vertex(vertices[2].x / 4, vertices[2].y / 4);
+  pa.vertex(vertices[3].x / 4, vertices[3].y / 4);
   pa.endShape(CLOSE);
-  
+
   pa.noFill();
   pa.stroke(255);
   pa.strokeWeight(3);
@@ -65,6 +65,14 @@ public void controlKey(PApplet pa, GWinData windata, KeyEvent keyEvent) {
       vertexId = 2;
     } else if (c == '4') {
       vertexId = 3;
+    }
+
+    if (key == 's') {
+      saveConfig();
+    }
+
+    if (key == 'l') {
+      loadConfig();
     }
   }
 }

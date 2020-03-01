@@ -55,8 +55,8 @@ public PImage controlImg;
 // useExternalDisplay : true = main graphics are fullscreen on second display, false = main graphics are windowed
 // useSpout : true = send final graphics through spout, false = ignore spout
 public boolean useKinect = true;
-public boolean useExternalDisplay = true;
-public boolean useSpout = false;
+public boolean useExternalDisplay = false;
+public boolean useSpout = true;
 
 public void settings() {
   if (useExternalDisplay) {
@@ -76,7 +76,7 @@ public void setup() {
 
   depthCamera = new DepthCamera(this, useKinect);
 
-  setupControlWindow();
+  //setupControlWindow();
 
   if (useSpout) setupSpout();
 
