@@ -4,9 +4,14 @@ public void setupControlWindow() {
   controlWindow.addDrawHandler(this, "controlDraw");
   controlWindow.addMouseHandler(this, "controlMouse");
   controlWindow.addKeyHandler(this, "controlKey");
+  
+  // Letting the control PApplet run its own draw loop apparently causes a memory leak?
+  controlWindow.noLoop();
 }
 
 public void controlDraw(PApplet pa, GWinData windata) {
+  controlApplet = pa;
+  
   pa.textureMode(NORMAL);
   pa.background(0);
   pa.fill(0);

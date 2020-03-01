@@ -36,6 +36,8 @@ public int vertexId = 0;
 public PVector vertices[] = new PVector[4];
 public PVector texVertices[] = new PVector[4];
 
+public PApplet controlApplet  = null;
+
 
 /** Helpers, half and quarter of the main displays width and height **/
 int w2;
@@ -56,7 +58,7 @@ public PImage controlImg;
 // useSpout : true = send final graphics through spout, false = ignore spout
 public boolean useKinect = true;
 public boolean useExternalDisplay = false;
-public boolean useSpout = true;
+public boolean useSpout = false;
 
 public void settings() {
   if (useExternalDisplay) {
@@ -76,7 +78,7 @@ public void setup() {
 
   depthCamera = new DepthCamera(this, useKinect);
 
-  //setupControlWindow();
+  setupControlWindow();
 
   if (useSpout) setupSpout();
 
@@ -92,6 +94,8 @@ public void draw() {
   if (body != null) {
     image(body, (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
   }
+  
+  
 
   opencv.loadImage(get());
 
@@ -116,6 +120,10 @@ public void draw() {
   noStroke();
 
   drawProjection(this, graphics, 1);
+  
+  if (controlApplet != null) {
+     controlApplet.redraw(); 
+  }
 
   if (useSpout) spout.sendTexture();
 }

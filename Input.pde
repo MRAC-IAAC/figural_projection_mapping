@@ -37,9 +37,11 @@ public void saveConfig() {
     outStrings[i] = out.get(i);
   }
   saveStrings("config.txt", outStrings);
+  println("Saved config file");
 }
 
 public void loadConfig() {
+
   String[] input = loadStrings("config.txt");
   vertices[0].x = float(input[0]);
   vertices[0].y = float(input[1]);
@@ -49,4 +51,5 @@ public void loadConfig() {
   vertices[2].y = float(input[5]);
   vertices[3].x = float(input[6]);
   vertices[3].y = float(input[7]);
+  println("Loaded config file");
 }
