@@ -50,25 +50,25 @@ Super quick video demonstrating all the steps
 
 **6)** Vector Fields V1
 
-![Vector1](./doc/01_v1.jpg)
+![Vector1](./doc/v1.jpg)
 
-![Vector1](./doc/01_v2.jpg)
+![Vector1](./doc/v12.jpg)
 
-![Vector1](./doc/01_v3.jpg)
+![Vector1](./doc/v13.jpg)
 
 .
 .
 
 Vector Fields V2
 
-![Vector2](./doc/02_v1.jpg)
+![Vector2](./doc/v2.jpg)
 
 .
 .
 
 Vector Fields V3
 
-![Vector2](./doc/02_v1.jpg)
+![Vector2](./doc/v3.jpg)
 
 
 .
@@ -76,30 +76,30 @@ Vector Fields V3
 
 Vector Fields V4
 
-![Vector4](./doc/03_v1.jpg)
+![Vector4](./doc/v4.jpg)
 
 .
 .
 
 Vector Fields V5
 
-![Vector5](./doc/05_v1.jpg)
+![Vector5](./doc/v5.jpg)
 
 .
 .
 
 Vector Fields V6
 
-![Vector6](./doc/06_v1.jpg)
+![Vector6](./doc/v61.jpg)
 
-![Vector6](./doc/06_v2.jpg)
+![Vector6](./doc/v62.jpg)
 
 .
 .
 
 Vector Fields V7
 
-![Vector6](./doc/07_v1.jpg)
+![Vector6](./doc/v7.jpg)
 
 .
 .
