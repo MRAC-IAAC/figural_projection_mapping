@@ -22,6 +22,10 @@ public void keyPressed() {
   if (key == 'l') {
     loadConfig();
   }
+  
+  if (key == 'a') {
+     autoConfig(); 
+  }
 }
 
 public void saveConfig() {

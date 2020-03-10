@@ -103,27 +103,22 @@ public void draw() {
 
   PImage body = depthCamera.getBodyBlobImage();
   if (body != null) {
+    pushMatrix();
+    scale(-1,1);
+    translate(-width,0);
     image(body, (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
+    popMatrix();
   }
-
-  //graphics.beginDraw();
-  //graphics.endDraw();
 
   opencv.loadImage(get());
 
   graphics.beginDraw();
   graphics.background(0);
 
-
-
   //graphics = cvGetOutlines(graphics);
-  //updateParticles();
-  drawVectorField(graphics);
-
-  //graphics.pushMatrix();
-  //graphics.scale(-1, 1);
-  //graphics.image(graphics.get(), -graphics.width, 0);
-  //graphics.popMatrix();
+  updateParticles();
+  
+  //drawVectorField(graphics);
 
   graphics.endDraw();
 
@@ -146,7 +141,7 @@ public void draw() {
 
 
   if (controlApplet != null) {
-    //controlApplet.redraw();
+    controlApplet.redraw();
   }
 
   if (frameCount % 100 == 0) {
