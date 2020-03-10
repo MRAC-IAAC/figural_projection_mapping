@@ -32,13 +32,13 @@ Super quick video demonstrating all the steps
 [![Third_Step](./doc/3.jpg)](https://www.youtube.com/watch?v=-CA7zrLlXVk)
 
 **3.1)** *Calibration through Spout and Resolume Arena*
-![Calibration](./doc/Delay_Test.png)
+![Calibration](./doc/Delay_Test.jpg)
 
 **3.1)** *Speed Test*
 [![Speed_Test](./doc/IMG_20200212_131307.jpg)](https://www.youtube.com/watch?v=fbgv05gPEUY)
 
 **3.2)** *Delay Test*
-[![Speed_Test](./doc/Delay_Test2.png)](https://www.youtube.com/watch?v=lHEGZzV15lw)
+[![Speed_Test](./doc/Delay_Test2.jpg)](https://www.youtube.com/watch?v=lHEGZzV15lw)
 
 **4)** Clean Outlines Offsets
 [![Fourth_Step](./doc/4.jpg)](https://www.youtube.com/watch?v=eJJTYA-iC-M)
