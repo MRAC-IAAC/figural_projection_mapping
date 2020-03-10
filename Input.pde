@@ -1,3 +1,7 @@
+public void mousePressed() {
+  resetField();
+}
+
 public void keyPressed() {
   if (key == '1') {
     vertexId = 0;

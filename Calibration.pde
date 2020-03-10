@@ -107,6 +107,9 @@ public void quadLerp(PVector dst,PVector[] vertices, float u, float v) {
 
 
 public void drawProjection(PApplet pa, PImage tex, int scale) {
+  pa.pushMatrix();
+  pa.scale(-1,1);
+  pa.translate(-pa.width,0);
   float diff = 0.05;
   for (float u = 0; u < 1; u += diff) {
     for (float v = 0; v < 1; v += diff) {
@@ -134,4 +137,5 @@ public void drawProjection(PApplet pa, PImage tex, int scale) {
       pa.endShape();
     }
   }
+  pa.popMatrix();
 }

@@ -23,6 +23,8 @@ import KinectPV2.*;
 
 import g4p_controls.*;
 
+import processing.sound.*;
+
 import spout.*;
 
 public DepthCamera depthCamera;
@@ -36,6 +38,7 @@ public int vertexId = 0;
 public PVector vertices[] = new PVector[4];
 public PVector texVertices[] = new PVector[4];
 
+// Used for drawing subpatches of distorted quad
 public PVector subVertices[] = new PVector[4];
 public PVector subTexVertices[] = new PVector[4];
 
@@ -62,6 +65,7 @@ public PImage controlImg;
 public boolean useKinect = true;
 public boolean useExternalDisplay = false;
 public boolean useSpout = false;
+public boolean morphOutput = true;
 
 public void settings() {
   if (useExternalDisplay) {
@@ -76,7 +80,7 @@ public void settings() {
 public void setup() {
   setupSize();
   graphics = createGraphics(width, height);
-  controlImg = createImage(width,height,ARGB);
+  controlImg = createImage(width, height, ARGB);
 
   setupParticles();
 
@@ -88,7 +92,10 @@ public void setup() {
 
   textureMode(NORMAL);
 
+  // Computer Vision
   opencv = new OpenCV(this, width, height);
+
+  setupVectorField();
 }
 
 public void draw() {
@@ -98,19 +105,26 @@ public void draw() {
   if (body != null) {
     image(body, (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
   }
-  
+
+  //graphics.beginDraw();
+  //graphics.endDraw();
+
   opencv.loadImage(get());
 
   graphics.beginDraw();
   graphics.background(0);
-  graphics = cvGetOutlines(graphics);
-  updateParticles();
-  
-  graphics.pushMatrix();
-  graphics.scale(-1,1);
-  graphics.image(graphics.get(),-graphics.width,0);
-  graphics.popMatrix();
-  
+
+
+
+  //graphics = cvGetOutlines(graphics);
+  //updateParticles();
+  drawVectorField(graphics);
+
+  //graphics.pushMatrix();
+  //graphics.scale(-1, 1);
+  //graphics.image(graphics.get(), -graphics.width, 0);
+  //graphics.popMatrix();
+
   graphics.endDraw();
 
   controlImg = graphics.get();
@@ -118,14 +132,25 @@ public void draw() {
 
   background(0);
   fill(0);
-  rect(0,0,width,height);
+  rect(0, 0, width, height);
+  
   noFill();
   noStroke();
 
-  drawProjection(this, graphics, 1);
-  
+  if (morphOutput) {
+    drawProjection(this, graphics, 1);
+  } else {
+    image(graphics, 0, 0);
+  }
+
+
+
   if (controlApplet != null) {
-     controlApplet.redraw(); 
+    //controlApplet.redraw();
+  }
+
+  if (frameCount % 100 == 0) {
+    println(frameRate);
   }
 
   if (useSpout) spout.sendTexture();
@@ -149,10 +174,10 @@ public void setupSize() {
   texVertices[1] = new PVector(1, 0);
   texVertices[2] = new PVector(1, 1);
   texVertices[3] = new PVector(0, 1);
-  
+
   for (int i = 0; i < 4; i++) {
-     subVertices[i] = new PVector(0,0);
-     subTexVertices[i] = new PVector(0,0);
+    subVertices[i] = new PVector(0, 0);
+    subTexVertices[i] = new PVector(0, 0);
   }
 }
 
