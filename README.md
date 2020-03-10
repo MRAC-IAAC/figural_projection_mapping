@@ -22,11 +22,23 @@ Super quick video demonstrating all the steps
 **1)** Blobs from OpenCV
 [![First_Step](./doc/1.jpg)](https://www.youtube.com/watch?v=LoU_e9nNRB8)
 
+**1.1)** *Blob Quality*
+[![First_Step](./doc/Blob_Quality.png)](https://www.youtube.com/watch?v=LoU_e9nNRB8)
+
 **2)** Clean Outlines
 [![Second_Step](./doc/2.jpg)](https://www.youtube.com/watch?v=uaYo_nu1j8A)
 
 **3)** Calibration Homography
 [![Third_Step](./doc/3.jpg)](https://www.youtube.com/watch?v=-CA7zrLlXVk)
+
+**3.1)** *Calibration through Spout and Resolume Arena*
+![Calibration](./doc/Delay_Test.png)
+
+**3.1)** *Speed Test*
+[![Speed_Test](./doc/IMG_20200212_131307.jpg)](https://www.youtube.com/watch?v=fbgv05gPEUY)
+
+**3.2)** *Delay Test*
+[![Speed_Test](./doc/Delay_Test2.png)](https://www.youtube.com/watch?v=lHEGZzV15lw)
 
 **4)** Clean Outlines Offsets
 [![Fourth_Step](./doc/4.jpg)](https://www.youtube.com/watch?v=eJJTYA-iC-M)
