@@ -23,7 +23,7 @@ Super quick video demonstrating all the steps
 [![First_Step](./doc/1.jpg)](https://www.youtube.com/watch?v=LoU_e9nNRB8)
 
 **1.1)** *Blob Quality*
-[![First_Step](./doc/Blob_Quality.png)](https://www.youtube.com/watch?v=LoU_e9nNRB8)
+[![First_Step](./doc/Blob_Quality.jpg)](https://www.youtube.com/watch?v=LoU_e9nNRB8)
 
 **2)** Clean Outlines
 [![Second_Step](./doc/2.jpg)](https://www.youtube.com/watch?v=uaYo_nu1j8A)
