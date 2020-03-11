@@ -8,6 +8,13 @@
  Email: 
  Status: development
  **/
+ 
+ /**
+ TODO
+ - Add color to people
+ - Animation of reset
+ **/
+ 
 
 import ch.bildspur.realsense.*;
 import ch.bildspur.realsense.type.ColorScheme;
@@ -82,7 +89,7 @@ public void setup() {
   graphics = createGraphics(width, height);
   controlImg = createImage(width, height, ARGB);
 
-  setupParticles();
+  //setupParticles();
 
   depthCamera = new DepthCamera(this, useKinect);
 
@@ -110,15 +117,17 @@ public void draw() {
     popMatrix();
   }
 
-  opencv.loadImage(get());
+  //opencv.loadImage(get());
 
   graphics.beginDraw();
   graphics.background(0);
 
   //graphics = cvGetOutlines(graphics);
-  updateParticles();
+  //updateParticles();
   
-  //drawVectorField(graphics);
+  
+  drawAllBodies(graphics);
+  drawVectorField(graphics);
 
   graphics.endDraw();
 
