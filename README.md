@@ -4,6 +4,9 @@
 ### Description
 
 Project mapping is a projection technique used to turn objects, often irregularly shaped into a display surface for video projection. What we tried to accomplish during Hardware course is creating a Video Projection system done by code in Processing, using the input from a Kinect and use that with OpenCV to create visual and interactive effects.
+
+![Result](./doc/Feathers2.jpg)
+
 ![History](./doc/History.jpg)
 
 ### Process Description
@@ -25,7 +28,7 @@ Calibration of the setting:
 ![First_Step](./doc/Blob_Quality.jpg)
 
 **2)** *Clean Outlines* --> [link video](https://www.youtube.com/watch?v=uaYo_nu1j8A)
-![Second_Step](./doc/2.jpg) 
+![Second_Step](./doc/2.jpg)
 
 **3)** Calibration Homography --> [link video](https://www.youtube.com/watch?v=-CA7zrLlXVk)
 ![Third_Step](./doc/3.jpg)
@@ -100,6 +103,9 @@ Vector Fields V7
 .
 .
 
+**7)** *Vector Field Implementation* --> [link video](https://www.youtube.com/watch?v=Rx-mc5FtOwc)
+![Fifth_Step](./doc/Feathers.jpg)
+
 ### Requirements
 
 **Processing Libraries:**
@@ -126,8 +132,8 @@ Input and Output
 
 Kinect2 + Video Projector Casio xj-a242
  *   ![hardware](./doc/hardw.jpg)
- 
- 
+
+
 ### References:
 
 * [Withouttitle-interactive, generative Online Application](https://www.liaworks.com/theprojects/withouttitle/)
