@@ -127,11 +127,8 @@ This is Marta's part
 This needs to be redone
 ![Workflow](./doc/Diagram.png)
 
-Kinect2
- *   ![Kinect2](./doc/Kinect.jpg)
-
-Video Projector Casio xj-a242
- *   ![Projector](./doc/Casio.jpg)
+Kinect2 + Video Projector Casio xj-a242
+ *   ![hardware](./doc/hardw.jpg)
 
 
 I don't know to put the code in order to be presentable.
