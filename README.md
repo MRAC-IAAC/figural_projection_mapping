@@ -3,13 +3,14 @@
 
 ### Description
 
-Project mapping is a projection technique used to turn objects, often irregularly shaped into a display surface for video projection.
+Project mapping is a projection technique used to turn objects, often irregularly shaped into a display surface for video projection. What we tried to accomplish during Hardware course is creating a Video Projection system done by code in processing, processing the input from a Kinect and use that with OpenCV to create visual and interactive effects.
 
 ![History](./doc/History.jpg)
 
 ### References:
 
-* [WITHOUTTITLE](https://www.liaworks.com/theprojects/withouttitle/)
+* [Withouttitle-interactive, generative Online Application](https://www.liaworks.com/theprojects/withouttitle/)
+* [Vector Field by tsulej](https://generateme.wordpress.com/2016/04/24/drawing-vector-field/)
 
 ### Process Description
 
