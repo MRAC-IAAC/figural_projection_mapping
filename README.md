@@ -9,9 +9,8 @@ Project mapping is a projection technique used to turn objects, often irregularl
 
 ### Process Description
 
-**Basic Steps:**
+**Software workflow:**
 
-Software workflow:
 ![workflow](./doc/workflow.jpg)
 
 Calibration of the setting:
@@ -110,19 +109,20 @@ Vector Fields V7
 
 * *KinectPV2*
 
-* *spout**
-
 * *Sound*
 
 * *g4p_controls*
 
+* *spout**
+
 * *realSense**
 
-**Not necessary*
+**Optional*
 
 
 #### Electronics and Hardware
 
+Input and Output
 ![Workflow](./doc/diagram.jpg)
 
 Kinect2 + Video Projector Casio xj-a242
