@@ -125,7 +125,7 @@ This is Marta's part
 #### Electronics and Hardware
 
 This needs to be redone
-![Workflow](./doc/Diagram.png)
+![Workflow](./doc/diagram.jpg)
 
 Kinect2 + Video Projector Casio xj-a242
  *   ![hardware](./doc/hardw.jpg)
