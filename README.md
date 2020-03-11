@@ -7,18 +7,12 @@ Project mapping is a projection technique used to turn objects, often irregularl
 
 ![History](./doc/History.jpg)
 
-### References:
-
-* [Withouttitle-interactive, generative Online Application](https://www.liaworks.com/theprojects/withouttitle/)
-* [Vector Field by tsulej](https://generateme.wordpress.com/2016/04/24/drawing-vector-field/)
-
 ### Process Description
 
 **Basic Steps:**
 
 Software workflow:
 ![workflow](./doc/workflow.jpg)
-
 
 Calibration of the setting:
 ![calibration](./doc/calibration.jpg)
@@ -74,7 +68,6 @@ Vector Fields V2
 Vector Fields V3
 
 ![Vector2](./doc/v3.jpg)
-
 
 .
 .
@@ -134,9 +127,16 @@ Vector Fields V7
 
 Kinect2 + Video Projector Casio xj-a242
  *   ![hardware](./doc/hardw.jpg)
+ 
+ 
+### References:
+
+* [Withouttitle-interactive, generative Online Application](https://www.liaworks.com/theprojects/withouttitle/)
+* [Vector Field by tsulej](https://generateme.wordpress.com/2016/04/24/drawing-vector-field/)
 
 
-I don't know to put the code in order to be presentable.
+
+### CODE
 
  ```import ch.bildspur.realsense.*;
 import ch.bildspur.realsense.type.ColorScheme;
