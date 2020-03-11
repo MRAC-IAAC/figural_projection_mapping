@@ -16,11 +16,13 @@ Project mapping is a projection technique used to turn objects, often irregularl
 
 **Basic Steps:**
 
+Software workflow:
+![workflow](./doc/workflow.jpg)
+
+
 Calibration of the setting:
 ![calibration](./doc/calibration.jpg)
 
-Software workflow:
-![workflow](./doc/workflow.jpg)
 
 **Documentation:**
 
