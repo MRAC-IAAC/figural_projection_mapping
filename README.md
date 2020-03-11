@@ -3,8 +3,7 @@
 
 ### Description
 
-Project mapping is a projection technique used to turn objects, often irregularly shaped into a display surface for video projection. What we tried to accomplish during Hardware course is creating a Video Projection system done by code in processing, processing the input from a Kinect and use that with OpenCV to create visual and interactive effects.
-
+Project mapping is a projection technique used to turn objects, often irregularly shaped into a display surface for video projection. What we tried to accomplish during Hardware course is creating a Video Projection system done by code in Processing, using the input from a Kinect and use that with OpenCV to create visual and interactive effects.
 ![History](./doc/History.jpg)
 
 ### Process Description
@@ -23,10 +22,10 @@ Calibration of the setting:
 ![First_Step](./doc/1.jpg)
 
 **1.1)** *Blob Quality*
-[![First_Step](./doc/Blob_Quality.jpg)
+![First_Step](./doc/Blob_Quality.jpg)
 
-**2)** Clean Outlines 
-![Second_Step](./doc/2.jpg) --> [link video](https://www.youtube.com/watch?v=uaYo_nu1j8A)
+**2)** *Clean Outlines* --> [link video](https://www.youtube.com/watch?v=uaYo_nu1j8A)
+![Second_Step](./doc/2.jpg) 
 
 **3)** Calibration Homography --> [link video](https://www.youtube.com/watch?v=-CA7zrLlXVk)
 ![Third_Step](./doc/3.jpg)
@@ -40,10 +39,10 @@ Calibration of the setting:
 **3.2)** *Delay Test* --> [link video](https://www.youtube.com/watch?v=lHEGZzV15lw)
 ![Speed_Test](./doc/Delay_Test2.jpg)
 
-**4)** Clean Outlines Offsets --> [link video](https://www.youtube.com/watch?v=eJJTYA-iC-M)
+**4)** *Clean Outlines Offsets* --> [link video](https://www.youtube.com/watch?v=eJJTYA-iC-M)
 ![Fourth_Step](./doc/4.jpg)
 
-**5)** Physics Engine Implementation --> [link video](https://www.youtube.com/watch?v=-C0LxvOYOOE)
+**5)** *Physics Engine Implementation* --> [link video](https://www.youtube.com/watch?v=-C0LxvOYOOE)
 ![Fifth_Step](./doc/5.jpg)
 
 #### Graphics Exploration
