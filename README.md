@@ -3,7 +3,7 @@
 
 ### Description
 
-Blablablablabla.
+Project mapping is a projection technique used to turn objects, often irregularly shaped into a display surface for video projection.
 
 ![History](./doc/History.jpg)
 
@@ -23,32 +23,32 @@ Software workflow:
 
 **Documentation:**
 
-**1)** Blobs from OpenCV
-![First_Step](./doc/1.jpg)(https://www.youtube.com/watch?v=LoU_e9nNRB8)
+**1)** Blobs from OpenCV --> [link video](https://www.youtube.com/watch?v=LoU_e9nNRB8)
+![First_Step](./doc/1.jpg)
 
 **1.1)** *Blob Quality*
 [![First_Step](./doc/Blob_Quality.jpg)
 
-**2)** Clean Outlines
-![Second_Step](./doc/2.jpg)(https://www.youtube.com/watch?v=uaYo_nu1j8A)
+**2)** Clean Outlines 
+![Second_Step](./doc/2.jpg) --> [link video](https://www.youtube.com/watch?v=uaYo_nu1j8A)
 
-**3)** Calibration Homography
-![Third_Step](./doc/3.jpg)(https://www.youtube.com/watch?v=-CA7zrLlXVk)
+**3)** Calibration Homography --> [link video](https://www.youtube.com/watch?v=-CA7zrLlXVk)
+![Third_Step](./doc/3.jpg)
 
 **3.1)** *Calibration through Spout and Resolume Arena*
 ![Calibration](./doc/Delay_Test.jpg)
 
-**3.1)** *Speed Test*
-![Speed_Test](./doc/IMG_20200212_131307.jpg)(https://www.youtube.com/watch?v=fbgv05gPEUY)
+**3.1)** *Speed Test* --> [link video](https://www.youtube.com/watch?v=fbgv05gPEUY)
+![Speed_Test](./doc/IMG_20200212_131307.jpg)
 
-**3.2)** *Delay Test*
-![Speed_Test](./doc/Delay_Test2.jpg)(https://www.youtube.com/watch?v=lHEGZzV15lw)
+**3.2)** *Delay Test* --> [link video](https://www.youtube.com/watch?v=lHEGZzV15lw)
+![Speed_Test](./doc/Delay_Test2.jpg)
 
-**4)** Clean Outlines Offsets
-![Fourth_Step](./doc/4.jpg)(https://www.youtube.com/watch?v=eJJTYA-iC-M)
+**4)** Clean Outlines Offsets --> [link video](https://www.youtube.com/watch?v=eJJTYA-iC-M)
+![Fourth_Step](./doc/4.jpg)
 
-**5)** Physics Engine Implementation
-![Fifth_Step](./doc/5.jpg)(https://www.youtube.com/watch?v=-C0LxvOYOOE)
+**5)** Physics Engine Implementation --> [link video](https://www.youtube.com/watch?v=-C0LxvOYOOE)
+![Fifth_Step](./doc/5.jpg)
 
 #### Graphics Exploration
 
