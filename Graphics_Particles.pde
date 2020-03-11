@@ -34,10 +34,7 @@ public class Particle {
   }
 
   public void update() {
-
     velocity.add(0, 0.1);
-
-
 
     if (velocity.mag() > maxVelocity) {
       velocity = velocity.normalize();

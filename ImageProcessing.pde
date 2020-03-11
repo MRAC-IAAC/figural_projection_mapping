@@ -61,21 +61,21 @@ public void drawMultipleOutlines(PGraphics pg, ArrayList<PVector> points, int co
 
 PImage[] imgHistory = new PImage[3];
 
-//public PImage calculateImageHistory(PImage newImg) {
-//  for (int i = 0; i < imgHistory.length - 1; i++) {
-//    imgHistory[i] = (imgHistory[i + 1] != null) ? imgHistory[i + 1] : newImg;
-//  }
-//  imgHistory[imgHistory.length-1] = newImg;
+public PImage calculateImageHistory(PImage newImg) {
+  for (int i = 0; i < imgHistory.length - 1; i++) {
+    imgHistory[i] = (imgHistory[i + 1] != null) ? imgHistory[i + 1] : newImg;
+  }
+  imgHistory[imgHistory.length-1] = newImg;
 
-//  PGraphics output = createGraphics(width, height);
-//  output.beginDraw();
-//  for (int i = 0; i < imgHistory.length; i++) {
-//    float a = 1.0 / (i + 1) * 255.0;
-//    output.tint(255, a);
-//    output.image(imgHistory[i], 0, 0);
-//  }
-//  output.tint(255, 255);
-//  output.endDraw();
+  PGraphics output = createGraphics(width, height);
+  output.beginDraw();
+  for (int i = 0; i < imgHistory.length; i++) {
+    float a = 1.0 / (i + 1) * 255.0;
+    output.tint(255, a);
+    output.image(imgHistory[i], 0, 0);
+  }
+  output.tint(255, 255);
+  output.endDraw();
 
-//  return(output);
-//}
+  return(output);
+}

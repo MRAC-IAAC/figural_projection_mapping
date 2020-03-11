@@ -8,13 +8,13 @@
  Email: 
  Status: development
  **/
- 
- /**
+
+/**
  TODO
  - Add color to people
  - Animation of reset
  **/
- 
+
 
 import ch.bildspur.realsense.*;
 import ch.bildspur.realsense.type.ColorScheme;
@@ -70,15 +70,16 @@ public PImage controlImg;
 // useExternalDisplay : true = main graphics are fullscreen on second display, false = main graphics are windowed
 // useSpout : true = send final graphics through spout, false = ignore spout
 public boolean useKinect = true;
-public boolean useExternalDisplay = false;
+public boolean useExternalDisplay = true;
 public boolean useSpout = false;
-public boolean morphOutput = true;
+public boolean morphOutput = false;
+public boolean calibrate = false;
 
 public void settings() {
   if (useExternalDisplay) {
     fullScreen(P2D, 2);
   } else {
-    size(960, 540, P2D);
+    size(960, 540);
   }
 
   println("Main Display Size : " + width + "x" + height);
@@ -86,7 +87,7 @@ public void settings() {
 
 public void setup() {
   setupSize();
-  graphics = createGraphics(width, height);
+  graphics = createGraphics(width, height, P2D);
   controlImg = createImage(width, height, ARGB);
 
   //setupParticles();
@@ -103,41 +104,54 @@ public void setup() {
   opencv = new OpenCV(this, width, height);
 
   setupVectorField();
+
+  println(width + " : " + height);
 }
 
 public void draw() {
   background(0, 0, 50);
 
+  ampt = amp.analyze();
+
   PImage body = depthCamera.getBodyBlobImage();
   if (body != null) {
     pushMatrix();
-    scale(-1,1);
-    translate(-width,0);
+    scale(-1, 1);
+    translate(-width, 0);
     image(body, (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
     popMatrix();
   }
 
   //opencv.loadImage(get());
 
+  background(0);
+  fill(0);
+  rect(0, 0, width, height);
+
   graphics.beginDraw();
   graphics.background(0);
+  graphics.fill(0);
+  graphics.rect(0, 0, 1800, 1000); 
 
   //graphics = cvGetOutlines(graphics);
   //updateParticles();
-  
-  
+
   drawAllBodies(graphics);
+
+  graphics.endDraw();
+  drawProjection(this, graphics, 1);
+  //image(calculateImageHistory(get()),0,0);
+  graphics.beginDraw();
+  graphics.clear();
+
   drawVectorField(graphics);
 
   graphics.endDraw();
 
-  controlImg = graphics.get();
-  //controlImg.copy(graphics,0,0,graphics.width,graphics.height,0,0,graphics.width,graphics.height);
+  if (calibrate) {
+    controlImg = graphics.get();
+  }
 
-  background(0);
-  fill(0);
-  rect(0, 0, width, height);
-  
   noFill();
   noStroke();
 
@@ -148,13 +162,12 @@ public void draw() {
   }
 
 
-
-  if (controlApplet != null) {
+  if (calibrate && controlApplet != null) {
     controlApplet.redraw();
   }
 
   if (frameCount % 100 == 0) {
-    println(frameRate);
+    //println(frameRate);
   }
 
   if (useSpout) spout.sendTexture();
@@ -173,6 +186,8 @@ public void setupSize() {
   vertices[1] = new PVector(width, 0);
   vertices[2] = new PVector(width, height);
   vertices[3] = new PVector(0, height);
+
+  println(vertices[2]);
 
   texVertices[0] = new PVector(0, 0);
   texVertices[1] = new PVector(1, 0);

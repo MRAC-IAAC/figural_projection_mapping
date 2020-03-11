@@ -71,24 +71,31 @@ public void drawAllBodies(PGraphics pg) {
     color(152, 43, 111)};
 
   ArrayList<PImage> bodyTrackList = depthCamera.kinect.getBodyTrackUser(); 
-
   for (int i = 0; i < bodyTrackList.size(); i++) {
-    opencv.loadImage(bodyTrackList.get(i));
-    opencv.threshold();
-    opencv.erode();
-    opencv.dilate();
+    //opencv.loadImage(bodyTrackList.get(i));
+    //opencv.gray();
+    //opencv.threshold(10);
+    //opencv.erode();
+    //opencv.dilate();
+    
+    pg.pushMatrix();
+    pg.scale(-1, 1);
+    pg.translate(-width, 0);
     pg.tint(bodyColors[i]);
-    pg.image(opencv.getSnapshot(),0,0);
+    pg.blend(bodyTrackList.get(i),0,0,depthCamera.cameraWidth,depthCamera.cameraHeight,(width - depthCamera.scaledWidth) / 2,0,depthCamera.scaledWidth,depthCamera.scaledHeight,LIGHTEST);
+    //pg.image(bodyTrackList.get(i), (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
     pg.tint(255);
+    pg.popMatrix();
+    
   }
 }
 
-public void drawVectorField(PGraphics pg) {
-  background(0);
-  fill(0);
-  rect(0, 0, 1800, 1000); 
-  ampt = amp.analyze();
+float minX =  Float.MAX_VALUE;
+float maxX = - Float.MAX_VALUE;
+float minY =  Float.MAX_VALUE;
+float maxY = - Float.MAX_VALUE;
 
+public void drawVectorField(PGraphics pg) {
   float[][] distances = new float [4][points.size()];
   for (int i= 0; i< distances[0].length; i++) {
     distances[0][i] = Float.MAX_VALUE;
@@ -111,7 +118,7 @@ public void drawVectorField(PGraphics pg) {
 
     resetTimer--;
   } else {
-    //ArrayList<KSkeleton> skeletonArray =  kinect.getSkeleton3d();
+    //ArrayList<KSkeleton> skeletonArray =  depthCamera.kinect.getSkeleton3d();
     ArrayList<KSkeleton> skeletonArray =  depthCamera.kinect.getSkeletonColorMap();
 
     // Update field using skeletons
@@ -120,20 +127,62 @@ public void drawVectorField(PGraphics pg) {
       if (skeleton.isTracked()) {
 
         KJoint[] joints = skeleton.getJoints();
-        KJoint joint = joints[KinectPV2.JointType_HandRight];
+        KJoint joint = joints[KinectPV2.JointType_HandLeft];
 
         //Define Parameters
-        float x = depthCamera.cameraWidth - joint.getX();
+        float x = width - joint.getX();
         float y = joint.getY();
+        
+        
+        //- 90, 342     750,350       
 
-        //PVector currentHand = new PVector(x,y);
-        //quadLerp(currentHand,vertices,currentHand.x / depthCamera.cameraWidth,currentHand.y / depthCamera.cameraHeight);
+        // -95, 875     758,885 
+        
+        x = map(x,-90,750,0,width);
+        y = map(y,340,875,0,height);
 
-        PVector kinect = new PVector((x-lastx), (y-lasty)+1);
+        pg.fill(200, 100, 100);
+        pg.ellipse(x, y, 10, 10);
+        // Transform just the hand value
+
+
+
+
+
+        PVector currentHand = new PVector(x, y);
+
+
+
+        float u = currentHand.x / width;
+        float v = currentHand.y / height;
+
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+
+        //if (u < minX) minX = u;
+        //if (u > maxX) maxX = u;
+        //if (v < minY) minY = v;
+        //if (v > maxY) maxY = v;
+
+
+
+
+        //println(minX + " : " + maxX + " : " + minY + " : " + maxY);
+
+        //println(currentHand);
+        quadLerp(currentHand, vertices, u, v);
+        //println(currentHand);
+
+        //x = currentHand.x;
+        //y = currentHand.y;
+
+        PVector kinect = new PVector((x-lp[i].x), (y-lp[i].y)+1);
 
         for (int j = 0; j < points.size(); j++) {
-          PVector p = points.get (j);
-          PVector d = direction.get (j);
+          PVector p = points.get(j);
+          PVector d = direction.get(j);
           PVector kinect2 = kinect.get();
           float s = dist(x, y, p.x, p.y); 
           distances [i][j] = s;
@@ -154,50 +203,8 @@ public void drawVectorField(PGraphics pg) {
     }
   }
 
-  //ArrayList<KSkeleton> skeletonArray =  kinect.getSkeleton3d();
-  ArrayList<KSkeleton> skeletonArray =  depthCamera.kinect.getSkeletonColorMap();
-
-  // Update field using skeletons
-  for (int i = 0; i < skeletonArray.size(); i++) {
-    KSkeleton skeleton = (KSkeleton) skeletonArray.get(i);
-    if (skeleton.isTracked()) {
-
-      KJoint[] joints = skeleton.getJoints();
-      KJoint joint = joints[KinectPV2.JointType_HandRight];
-
-      //Define Parameters
-      float x = depthCamera.cameraWidth - joint.getX();
-      float y = joint.getY();
-
-      //PVector currentHand = new PVector(x,y);
-      //quadLerp(currentHand,vertices,currentHand.x / depthCamera.cameraWidth,currentHand.y / depthCamera.cameraHeight);
-
-      PVector kinect = new PVector((x-lastx), (y-lasty)+1);
-
-      for (int j = 0; j < points.size(); j++) {
-        PVector p = points.get (j);
-        PVector d = direction.get (j);
-        PVector kinect2 = kinect.get();
-        float s = dist(x, y, p.x, p.y); 
-        distances [i][j] = s;
-        //distance between mouse-point)
-        if (s < 80) {
-          //distance between mouse movement
-          kinect2.mult(map(s, 0, 80, 1, 0)); 
-          d.add(kinect2);
-          if (d.mag() > 80) {
-            d.normalize();
-            d.mult(80);
-          }
-        }
-      }
-      lp[i].x = x;
-      lp[i].y = y;
-    }
-  }
-
   // Check audio input for sound to reset field 0.01
-  if (ampt >= 0.5) {
+  if (ampt >= 0.01) {
     resetField();
   }
 
@@ -212,28 +219,28 @@ public void drawVectorField(PGraphics pg) {
 
     //color shadow in the mouse
     if (s0 < 80) {
-      strokeWeight (2);
-      stroke (220, 66, 117);
-      line (p.x, p.y, p.x+d.x, p.y+d.y);//draw
-      strokeWeight (1.5);
+      pg.strokeWeight (2);
+      pg.stroke (220, 66, 117);
+      pg.line (p.x, p.y, p.x+d.x, p.y+d.y);//draw
+      pg.strokeWeight (1.5);
     }
     if (s1 < 80) {
-      strokeWeight (2);
-      stroke (58, 33, 122);
-      line (p.x, p.y, p.x+d.x, p.y+d.y);//draw
-      strokeWeight (1.5);
+      pg.strokeWeight (2);
+      pg.stroke (58, 33, 122);
+      pg.line (p.x, p.y, p.x+d.x, p.y+d.y);//draw
+      pg.strokeWeight (1.5);
     }
     if (s2 < 80) {
-      strokeWeight (2);
-      stroke (115, 32, 193);
-      line (p.x, p.y, p.x+d.x, p.y+d.y);//draw
-      strokeWeight (1.5);
+      pg.strokeWeight (2);
+      pg.stroke (115, 32, 193);
+      pg.line (p.x, p.y, p.x+d.x, p.y+d.y);//draw
+      pg.strokeWeight (1.5);
     }
     if (s3 < 80) {
-      strokeWeight (2);
-      stroke (152, 43, 111);
-      line (p.x, p.y, p.x+d.x, p.y+d.y);//draw
-      strokeWeight (1.5);
+      pg.strokeWeight (2);
+      pg.stroke (152, 43, 111);
+      pg.line (p.x, p.y, p.x+d.x, p.y+d.y);//draw
+      pg.strokeWeight (1.5);
     }
 
     // select color from palette 
@@ -257,10 +264,5 @@ public void drawVectorField(PGraphics pg) {
 }
 
 public void resetField() {
-  println("hello");
-  //for (PVector d : direction) {
-  //  d.x = 0;
-  //  d.y = 0;
-  //}
   resetTimer = 24;
 }

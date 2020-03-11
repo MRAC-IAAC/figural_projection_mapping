@@ -51,6 +51,7 @@ public class DepthCamera {
     // kinect.getBodyTrackUser() -> Returns an arraylist of blobs sorted by different people
     kinect.enableBodyTrackImg(true);
     
+    kinect.enableSkeleton3DMap(true);
     kinect.enableSkeletonColorMap(true);
 
     kinect.init();
