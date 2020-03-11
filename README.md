@@ -49,12 +49,10 @@ Super quick video demonstrating all the steps
 #### Graphics Exploration
 
 **6)** Vector Fields V1
+.
+.
 
-![Vector1](./doc/v1.jpg)
-
-![Vector1](./doc/v12.jpg)
-
-![Vector1](./doc/v13.jpg)
+![Vector1](./doc/v1-tot.jpg)
 
 .
 .
