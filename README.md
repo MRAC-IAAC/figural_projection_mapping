@@ -1,19 +1,20 @@
 # Projection Mapping
 ## IAAC MRAC 19-20 | Hardware 2 | Group 2
 
+![Result](./doc/Feathers2.jpg)
+
 ### Description
 
-A framework for physical interaction with graphical systems running in the Processing environment, using a Kinect for input and a basic homography system to to project accurate around the user.
-The goal originally involved only projection mapping onto the user as a display surface, and expanded to employ the users movement in a larger visual field.
+A framework for physical interaction with graphical systems running in the Processing environment, using a Kinect for input and a basic homography system to project accurately around the user.
+The goal originally involved only projection mapping onto the user as a display surface, and expanded to employ the user's movement in a larger visual field.
 
-The featured interactive system lets up to four users carve and push a wall-sized field of vectors using their hands. Each user's influence is also highlighted with a specific color.  
+The featured interactive system lets up to four users carve and push a wall-sized field of vectors using their hands. Each user's influence is also highlighted with a specific color. Finally, clapping or other loud sounds will reset the field.  
 The initial demo placed the users between the projector/camera and the wall, although better results may be achieved with a short-thow projector between the wall and the users.  
-Finally clapping will reset the field.
 
-### Setup and Use
+## Setup and Use
 
-## Installation
-The framework was tested using a Kinect 2 on Windows 10.
+### Installation
+The framework was tested using a Kinect 2 on Windows 10.  
 First install the SDK for the camera being used, and Spout if choosing to use an external homography solution.
 
 Within Processing, the following external libraries are used:
@@ -25,13 +26,11 @@ Within Processing, the following external libraries are used:
 
 The attached projector should be set as an extended display
 
-## Calibration
+### Calibration
 Running the sketch with the 'calibrate' variable set to 'true' will allow the user to adjust the quadrilateral transformation of the output on the second window. Pressing the 1-4 keys will select each vertex of the canvas, and the user can click and drag to adjust its position. Pressing 's' will save the current calibration to a file, and pressing 'l' will reload the file's calibration. 
 
 
-### Development
-
-![Result](./doc/Feathers2.jpg)
+## Development
 
 ![History](./doc/History.jpg)
 
