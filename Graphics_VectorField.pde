@@ -77,16 +77,15 @@ public void drawAllBodies(PGraphics pg) {
     //opencv.threshold(10);
     //opencv.erode();
     //opencv.dilate();
-    
+
     pg.pushMatrix();
     pg.scale(-1, 1);
     pg.translate(-width, 0);
     pg.tint(bodyColors[i]);
-    pg.blend(bodyTrackList.get(i),0,0,depthCamera.cameraWidth,depthCamera.cameraHeight,(width - depthCamera.scaledWidth) / 2,0,depthCamera.scaledWidth,depthCamera.scaledHeight,LIGHTEST);
+    pg.blend(bodyTrackList.get(i), 0, 0, depthCamera.cameraWidth, depthCamera.cameraHeight, (width - depthCamera.scaledWidth) / 2, 0, depthCamera.scaledWidth, depthCamera.scaledHeight, LIGHTEST);
     //pg.image(bodyTrackList.get(i), (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
     pg.tint(255);
     pg.popMatrix();
-    
   }
 }
 
@@ -132,26 +131,22 @@ public void drawVectorField(PGraphics pg) {
         //Define Parameters
         float x = width - joint.getX();
         float y = joint.getY();
-        
-        
-        //- 90, 342     750,350       
 
+
+        // TODO: Currently this is a hardcoded calibration step to transform from Kinect bone space to screen space
+        // This can be recalibrated manually by reading the raw values reported when the users hand is at the four corners of the projected space (e.g. see below)
+        // This mapping should ultimately be extracted from the existing calibration step
+        // -90, 342     750,350       
         // -95, 875     758,885 
-        
-        x = map(x,-90,750,0,width);
-        y = map(y,340,875,0,height);
+
+        x = map(x, -90, 750, 0, width);
+        y = map(y, 340, 875, 0, height);
 
         pg.fill(200, 100, 100);
         pg.ellipse(x, y, 10, 10);
         // Transform just the hand value
 
-
-
-
-
         PVector currentHand = new PVector(x, y);
-
-
 
         float u = currentHand.x / width;
         float v = currentHand.y / height;
@@ -165,9 +160,6 @@ public void drawVectorField(PGraphics pg) {
         //if (u > maxX) maxX = u;
         //if (v < minY) minY = v;
         //if (v > maxY) maxY = v;
-
-
-
 
         //println(minX + " : " + maxX + " : " + minY + " : " + maxY);
 
