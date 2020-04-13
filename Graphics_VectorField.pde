@@ -5,15 +5,15 @@ public int[] colorIds;
 
 // colors used for points
 color[] pal = {
-  color (255, 255, 255), 
-  color (235, 235, 235), 
-  color (215, 215, 215), 
+  color (255, 255, 255),
+  color (235, 235, 235),
+  color (215, 215, 215),
 };
 
 color[] pal2 = {
-  color (160, 30, 9), 
-  color (140, 140, 140), 
-  color (120, 120, 120), 
+  color (160, 30, 9),
+  color (140, 140, 140),
+  color (120, 120, 120),
 };
 
 public Amplitude amp;
@@ -61,18 +61,18 @@ public void setupVectorField() {
 //  stroke (152, 43, 111);
 
 public void drawAllBodies(PGraphics pg) {
-  int[] bodyColors = {color(220, 66, 117), 
-    color(58, 33, 122), 
-    color(115, 32, 193), 
+  int[] bodyColors = {color(220, 66, 117),
+    color(58, 33, 122),
+    color(115, 32, 193),
     color(152, 43, 111)};
 
-  ArrayList<PImage> bodyTrackList = depthCamera.kinect.getBodyTrackUser(); 
+  ArrayList<PImage> bodyTrackList = depthCamera.kinect.getBodyTrackUser();
   for (int i = 0; i < bodyTrackList.size(); i++) {
     PImage body = bodyTrackList.get(i);
     body.loadPixels();
     for (int j=0; j < body.pixels.length; j++) {
       if (brightness(body.pixels[j]) == 0) {
-         body.pixels[j] = color(0,0); 
+         body.pixels[j] = color(0,0);
       }
     }
     body.updatePixels();
@@ -82,17 +82,15 @@ public void drawAllBodies(PGraphics pg) {
     //opencv.threshold(10);
     //opencv.erode();
     //opencv.dilate();
-    
-    // Something should be done in here to allow for showing multiple body blobs
+
     pg.pushMatrix();
     pg.scale(-1, 1);
     pg.translate(-width, 0);
     pg.tint(bodyColors[i]);
-    //pg.blend(bodyTrackList.get(i),0,0,depthCamera.cameraWidth,depthCamera.cameraHeight,(width - depthCamera.scaledWidth) / 2,0,depthCamera.scaledWidth,depthCamera.scaledHeight,LIGHTEST);
-    pg.image(body, (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
+    pg.blend(bodyTrackList.get(i), 0, 0, depthCamera.cameraWidth, depthCamera.cameraHeight, (width - depthCamera.scaledWidth) / 2, 0, depthCamera.scaledWidth, depthCamera.scaledHeight, LIGHTEST);
+    //pg.image(bodyTrackList.get(i), (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
     pg.tint(255);
     pg.popMatrix();
-    
   }
 }
 
@@ -138,26 +136,22 @@ public void drawVectorField(PGraphics pg) {
         //Define Parameters
         float x = width - joint.getX();
         float y = joint.getY();
-        
-        
-        //- 90, 342     750,350       
 
-        // -95, 875     758,885 
-        
-        x = map(x,-90,750,0,width);
-        y = map(y,340,875,0,height);
+
+        // TODO: Currently this is a hardcoded calibration step to transform from Kinect bone space to screen space
+        // This can be recalibrated manually by reading the raw values reported when the users hand is at the four corners of the projected space (e.g. see below)
+        // This mapping should ultimately be extracted from the existing calibration step
+        // -90, 342     750,350
+        // -95, 875     758,885
+
+        x = map(x, -90, 750, 0, width);
+        y = map(y, 340, 875, 0, height);
 
         pg.fill(200, 100, 100);
         pg.ellipse(x, y, 10, 10);
         // Transform just the hand value
 
-
-
-
-
         PVector currentHand = new PVector(x, y);
-
-
 
         float u = currentHand.x / width;
         float v = currentHand.y / height;
@@ -171,9 +165,6 @@ public void drawVectorField(PGraphics pg) {
         //if (u > maxX) maxX = u;
         //if (v < minY) minY = v;
         //if (v > maxY) maxY = v;
-
-
-
 
         //println(minX + " : " + maxX + " : " + minY + " : " + maxY);
 
@@ -190,12 +181,12 @@ public void drawVectorField(PGraphics pg) {
           PVector p = points.get(j);
           PVector d = direction.get(j);
           PVector kinect2 = kinect.get();
-          float s = dist(x, y, p.x, p.y); 
+          float s = dist(x, y, p.x, p.y);
           distances [i][j] = s;
           //distance between mouse-point)
           if (s < 80) {
             //distance between mouse movement
-            kinect2.mult(map(s, 0, 80, 1, 0)); 
+            kinect2.mult(map(s, 0, 80, 1, 0));
             d.add(kinect2);
             if (d.mag() > 80) {
               d.normalize();
@@ -249,7 +240,7 @@ public void drawVectorField(PGraphics pg) {
       pg.strokeWeight (1.5);
     }
 
-    // select color from palette 
+    // select color from palette
     float a = d.heading();
     if (a < 0) {
       int cn = colorIds[i];
