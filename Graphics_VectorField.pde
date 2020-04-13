@@ -16,9 +16,6 @@ color[] pal2 = {
   color (120, 120, 120), 
 };
 
-float lastx;
-float lasty;
-
 public Amplitude amp;
 public AudioIn in;
 public float ampt;
@@ -43,7 +40,6 @@ public void setupVectorField() {
       //asign vector to the created points
       points.add(v);
       PVector d = new PVector(12, 12);
-      //d = PVector. random2D(v);
       direction.add(d);
     }
   }
@@ -72,18 +68,28 @@ public void drawAllBodies(PGraphics pg) {
 
   ArrayList<PImage> bodyTrackList = depthCamera.kinect.getBodyTrackUser(); 
   for (int i = 0; i < bodyTrackList.size(); i++) {
+    PImage body = bodyTrackList.get(i);
+    body.loadPixels();
+    for (int j=0; j < body.pixels.length; j++) {
+      if (brightness(body.pixels[j]) == 0) {
+         body.pixels[j] = color(0,0); 
+      }
+    }
+    body.updatePixels();
+    // OpenCV is slowwww
     //opencv.loadImage(bodyTrackList.get(i));
     //opencv.gray();
     //opencv.threshold(10);
     //opencv.erode();
     //opencv.dilate();
     
+    // Something should be done in here to allow for showing multiple body blobs
     pg.pushMatrix();
     pg.scale(-1, 1);
     pg.translate(-width, 0);
     pg.tint(bodyColors[i]);
-    pg.blend(bodyTrackList.get(i),0,0,depthCamera.cameraWidth,depthCamera.cameraHeight,(width - depthCamera.scaledWidth) / 2,0,depthCamera.scaledWidth,depthCamera.scaledHeight,LIGHTEST);
-    //pg.image(bodyTrackList.get(i), (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
+    //pg.blend(bodyTrackList.get(i),0,0,depthCamera.cameraWidth,depthCamera.cameraHeight,(width - depthCamera.scaledWidth) / 2,0,depthCamera.scaledWidth,depthCamera.scaledHeight,LIGHTEST);
+    pg.image(body, (width - depthCamera.scaledWidth) / 2, (height - depthCamera.scaledHeight) / 2, depthCamera.scaledWidth, depthCamera.scaledHeight);
     pg.tint(255);
     pg.popMatrix();
     

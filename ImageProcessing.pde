@@ -31,7 +31,7 @@ public PGraphics cvGetOutlines(PGraphics pg) {
       }
       pg.endShape();
 
-      //drawMultipleOutlines(pg, points, 20);
+      drawMultipleOutlines(pg, points, 5);
     }
   }
   return pg;

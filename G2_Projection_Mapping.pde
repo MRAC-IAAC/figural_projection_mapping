@@ -9,13 +9,6 @@
  Status: development
  **/
 
-/**
- TODO
- - Add color to people
- - Animation of reset
- **/
-
-
 import ch.bildspur.realsense.*;
 import ch.bildspur.realsense.type.ColorScheme;
 
@@ -49,6 +42,7 @@ public PVector texVertices[] = new PVector[4];
 public PVector subVertices[] = new PVector[4];
 public PVector subTexVertices[] = new PVector[4];
 
+/** Applet that runs in the calibration window **/
 public PApplet controlApplet  = null;
 
 
@@ -61,6 +55,7 @@ int h4;
 
 /** Primary graphics context, before projection transformations **/
 public PGraphics graphics;
+/** Copy of the main screen, drawn to the calibrationw window **/
 public PImage controlImg;
 
 
@@ -69,11 +64,17 @@ public PImage controlImg;
 // useKinect : true = Kinect camera, false = realSense camera
 // useExternalDisplay : true = main graphics are fullscreen on second display, false = main graphics are windowed
 // useSpout : true = send final graphics through spout, false = ignore spout
+// morphOutput : Whether or not to apply homography to the final stage of drawing. Not used for vector field
+// calibrate : Whether to make the calibration window active. Adds some lag + visual artifacts
+// drawOutlines : Draw multiple transparent outlines offset from the central body
+// printFrameRate : Prints the framerate every 100 frames
 public boolean useKinect = true;
 public boolean useExternalDisplay = true;
 public boolean useSpout = false;
 public boolean morphOutput = false;
 public boolean calibrate = false;
+public boolean drawOutlines = false;
+public boolean printFrameRate = false;
 
 public void settings() {
   if (useExternalDisplay) {
@@ -87,7 +88,7 @@ public void settings() {
 
 public void setup() {
   setupSize();
-  graphics = createGraphics(width, height, P2D);
+  graphics = createGraphics(width, height,P2D);
   controlImg = createImage(width, height, ARGB);
 
   //setupParticles();
@@ -106,6 +107,8 @@ public void setup() {
   setupVectorField();
 
   println(width + " : " + height);
+
+  loadConfig();
 }
 
 public void draw() {
@@ -122,7 +125,11 @@ public void draw() {
     popMatrix();
   }
 
-  //opencv.loadImage(get());
+  if (drawOutlines) {
+    opencv.loadImage(get());
+  }
+
+
 
   background(0);
   fill(0);
@@ -133,10 +140,15 @@ public void draw() {
   graphics.fill(0);
   graphics.rect(0, 0, 1800, 1000); 
 
-  //graphics = cvGetOutlines(graphics);
-  //updateParticles();
+  if (drawOutlines) {
+    graphics = cvGetOutlines(graphics);
+    //updateParticles();
+  } else {
+    drawAllBodies(graphics);
+  }
 
-  drawAllBodies(graphics);
+
+
 
   graphics.endDraw();
   drawProjection(this, graphics, 1);
@@ -166,8 +178,8 @@ public void draw() {
     controlApplet.redraw();
   }
 
-  if (frameCount % 100 == 0) {
-    //println(frameRate);
+  if (printFrameRate && frameCount % 100 == 0) {
+    println(frameRate);
   }
 
   if (useSpout) spout.sendTexture();
